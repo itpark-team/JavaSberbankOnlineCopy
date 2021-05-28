@@ -7,7 +7,7 @@ import com.company.server.db.tables.TableClients;
 public class DbManager {
     private static DbManager instance = null;
 
-    private String URL = "jdbc:oracle:thin:@localhost:55008:XE";
+    private String URL = "jdbc:oracle:thin:@localhost:55002:XE";
     private String LOGIN = "c##SBERBANK";
     private String PASSWORD = "1234";
 

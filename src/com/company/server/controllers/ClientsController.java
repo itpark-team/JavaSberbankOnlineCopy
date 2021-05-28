@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 
 public class ClientsController {
 
-    public static Response Auth(String parameters) {
+    public static Response Auth(String parameters) throws Exception {
 
         try {
             Client searchClient = new Gson().fromJson(parameters, Client.class);
@@ -22,10 +22,7 @@ public class ClientsController {
             return new Response(status, message);
 
         } catch (Exception e) {
-            String status = Response.STATUS_ERROR;
-            String message = e.getMessage();
-
-            return new Response(status, message);
+            throw e;
         }
     }
 }
