@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.client.controllers.WorkPageController">
+    <children>
+        <Label id="labelFIO" layoutX="39.0" layoutY="41.0" text="Имя Фамилия" />
+    </children>
+</Pane>

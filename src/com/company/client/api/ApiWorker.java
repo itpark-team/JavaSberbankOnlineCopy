@@ -1,7 +1,9 @@
 package com.company.client.api;
 
+import com.company.common.communication.General;
 import com.company.common.communication.Request;
 import com.company.common.communication.Response;
+import com.company.common.entities.Client;
 import com.google.gson.Gson;
 
 import java.io.InputStream;
@@ -39,5 +41,22 @@ public class ApiWorker {
 
     public ApiWorker(int port){
         this.port = port;
+    }
+
+    public Response ClientsAuth(Client client) throws Exception {
+        try{
+            String command = "Clients.Auth";
+            String parameters = new Gson().toJson(client);
+            String apiKey = General.API_KEY;
+
+            Request request = new Request(command, parameters, apiKey);
+
+            Response response = SendRequestReceiveResponse(request);
+
+            return response;
+
+        }catch (Exception e){
+            throw e;
+        }
     }
 }
