@@ -1,6 +1,7 @@
 package com.company.server.db.tables;
 
 
+import com.company.common.datatools.DataStorage;
 import com.company.common.entities.Client;
 
 import java.sql.*;
@@ -33,6 +34,7 @@ public class TableClients {
             Client client = null;
 
             if (findClientResult == false) {
+                DataStorage.Add("my_exception", "Ошибка. Клиент не найден");
                 throw new Exception("Ошибка. Клиент не найден");
             } else {
                 client = new Client(

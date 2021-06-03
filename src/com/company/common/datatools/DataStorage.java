@@ -1,4 +1,4 @@
-package com.company.client.datatools;
+package com.company.common.datatools;
 
 import java.util.HashMap;
 import java.util.Map;

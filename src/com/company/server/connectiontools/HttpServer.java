@@ -3,6 +3,7 @@ package com.company.server.connectiontools;
 import com.company.common.communication.General;
 import com.company.common.communication.Request;
 import com.company.common.communication.Response;
+import com.company.common.datatools.DataStorage;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -74,11 +75,18 @@ public class HttpServer {
                 if (request.ApiKey.equals(General.API_KEY) == true) {
                     response = Router.Route(request.Command, request.Parameters);
                 } else {
-                    throw new Exception("Ошибка. Клиент не найден");
+                    throw new Exception("Ошибка. Неверный API ключ");
                 }
             } catch (Exception e) {
                 String status = Response.STATUS_ERROR;
-                String message = e.toString();
+                String message = null;
+
+                if (DataStorage.ExistKey("my_exception") == true) {
+                    message = DataStorage.Get("my_exception").toString();
+                } else {
+                    message = e.toString();
+                }
+
 
                 response = new Response(status, message);
             }
