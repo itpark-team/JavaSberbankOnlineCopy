@@ -5,6 +5,7 @@ import com.company.client.api.ApiWorker;
 import com.company.common.communication.General;
 import com.company.common.communication.Response;
 import com.company.common.entities.Client;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -46,7 +47,9 @@ public class AuthPageController {
 
             switch (response.Status){
                 case Response.STATUS_OK:
-                    ShowDialog("Успешная авторизация");
+                    Client clientFromServer = new Gson().fromJson(response.Message, Client.class);
+
+                    ShowDialog("Успешная авторизация для "+clientFromServer.FirstName);
                     break;
                 case Response.STATUS_ERROR:
                     ShowDialog("Ошибка сервера: " + response.Message);
@@ -54,7 +57,7 @@ public class AuthPageController {
             }
 
         } catch (Exception e) {
-            ShowDialog("Ошибка отправки на сервер: " + e.getMessage());
+            ShowDialog("Ошибка отправки на сервер: " + e.toString());
         }
     }
 }

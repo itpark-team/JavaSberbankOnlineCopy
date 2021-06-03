@@ -6,9 +6,9 @@
 <Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.client.controllers.AuthPageController">
     <children>
         <Label layoutX="214.0" layoutY="168.0" prefHeight="25.0" prefWidth="40.0" text="Логин" />
-        <TextField id="textFieldLogin" layoutX="220.0" layoutY="193.0" />
+        <TextField fx:id="textFieldLogin" layoutX="220.0" layoutY="193.0" />
         <Label layoutX="217.0" layoutY="233.0" prefHeight="25.0" prefWidth="51.0" text="Пароль" />
-        <TextField id="textFieldPassword" layoutX="223.0" layoutY="258.0" />
+        <TextField fx:id="textFieldPassword" layoutX="223.0" layoutY="258.0" />
         <Button layoutX="268.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#buttonAuthClick" text="Войти" />
     </children>
 </Pane>

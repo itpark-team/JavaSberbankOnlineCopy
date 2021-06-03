@@ -10,7 +10,7 @@ public class Main {
             HttpServer httpServer = new HttpServer(General.SERVER_PORT);
             httpServer.Run();
         } catch (Exception e) {
-            System.out.println("Server started error: " + e.getMessage());
+            System.out.println("Server started error: " + e.toString());
         }
     }
 }

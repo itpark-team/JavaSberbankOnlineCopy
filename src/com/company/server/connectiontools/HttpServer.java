@@ -66,7 +66,7 @@ public class HttpServer {
                 Log(String.format("REQUEST :: command: %s --- parameters: %s --- apikey: %s", request.Command, request.Parameters, request.ApiKey));
 
             } catch (Exception e) {
-                Log(e.getMessage());
+                Log(e.toString());
                 return;
             }
 
@@ -78,7 +78,7 @@ public class HttpServer {
                 }
             } catch (Exception e) {
                 String status = Response.STATUS_ERROR;
-                String message = e.getMessage();
+                String message = e.toString();
 
                 response = new Response(status, message);
             }
@@ -89,7 +89,7 @@ public class HttpServer {
                 Log(String.format("RESPONSE :: status: %s --- message: %s", response.Status, response.Message));
 
             } catch (Exception e) {
-                Log(e.getMessage());
+                Log(e.toString());
             }
         }
     }
