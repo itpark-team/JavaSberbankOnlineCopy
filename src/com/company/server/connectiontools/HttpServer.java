@@ -83,6 +83,7 @@ public class HttpServer {
 
                 if (DataStorage.ExistKey("my_exception") == true) {
                     message = DataStorage.Get("my_exception").toString();
+                    DataStorage.Delete("my_exception");
                 } else {
                     message = e.toString();
                 }

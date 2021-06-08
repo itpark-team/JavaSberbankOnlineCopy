@@ -30,7 +30,6 @@ public class AuthPageController {
     }
 
     public void buttonAuthClick(MouseEvent mouseEvent) {
-        //Main.GoToPage(Main.WORK_PAGE);
 
         String login = textFieldLogin.getText();
         String password = textFieldPassword.getText();
@@ -50,6 +49,8 @@ public class AuthPageController {
                     Client clientFromServer = new Gson().fromJson(response.Message, Client.class);
 
                     ShowDialog("Успешная авторизация для "+clientFromServer.FirstName);
+
+                    Main.GoToPage(Main.WORK_PAGE);
                     break;
                 case Response.STATUS_ERROR:
                     ShowDialog("Ошибка сервера: " + response.Message);
