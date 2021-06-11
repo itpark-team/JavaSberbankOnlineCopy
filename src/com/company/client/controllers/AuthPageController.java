@@ -4,6 +4,7 @@ import com.company.client.Main;
 import com.company.client.api.ApiWorker;
 import com.company.common.communication.General;
 import com.company.common.communication.Response;
+import com.company.common.datatools.DataStorage;
 import com.company.common.entities.Client;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
@@ -47,6 +48,8 @@ public class AuthPageController {
             switch (response.Status){
                 case Response.STATUS_OK:
                     Client clientFromServer = new Gson().fromJson(response.Message, Client.class);
+
+                    DataStorage.Add("current_client", clientFromServer);
 
                     ShowDialog("Успешная авторизация для "+clientFromServer.FirstName);
 
