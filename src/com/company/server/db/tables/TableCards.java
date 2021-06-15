@@ -5,6 +5,7 @@ import com.company.common.entities.Card;
 import com.company.common.entities.Client;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class TableCards {
     private String url;
@@ -39,8 +40,8 @@ public class TableCards {
         }
     }
 
-    public void InsertNewCard(Card card) throws Exception{
-        try{
+    public void InsertNewCard(Card card) throws Exception {
+        try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
             Connection connection = DriverManager.getConnection(url, login, password);
@@ -50,7 +51,7 @@ public class TableCards {
             String query = String.format("INSERT INTO \"Cards\" (\"Number\", \"Money\") VALUES ('%s',%s)", card.Number, card.Money);
 
             statement.executeUpdate(query);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
@@ -73,6 +74,39 @@ public class TableCards {
             connection.close();
 
             return idCard;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public ArrayList<Card> GetCardByIdClient(int idClient) throws Exception {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            Connection connection = DriverManager.getConnection(url, login, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = String.format("SELECT  * FROM  \"Cards\" WHERE \"Id\" IN (SELECT \"IdCard\" FROM \"ClientsCards\" WHERE \"IdClient\"=%d)", idClient);
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+            ArrayList<Card> cards = new ArrayList<>();
+
+            while (resultSet.next() == true) {
+
+                Card card = new Card(
+                        resultSet.getInt("Id"),
+                        resultSet.getString("Number"),
+                        resultSet.getInt("Money")
+                );
+
+                cards.add(card);
+            }
+
+            connection.close();
+
+            return cards;
         } catch (Exception e) {
             throw e;
         }
