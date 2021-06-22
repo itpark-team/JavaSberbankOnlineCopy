@@ -9,12 +9,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Main extends Application {
 
     public static AnchorPane root;
-    public static ArrayList<Pane> pages = new ArrayList<>();
+    public static ArrayList<FXMLLoader> loaders = new ArrayList<>();
 
     public static final int AUTH_PAGE = 0;
     public static final int WORK_PAGE = 1;
@@ -27,8 +28,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
-        pages.add(FXMLLoader.load(getClass().getResource("views/AuthPage.fxml")));
-        pages.add(FXMLLoader.load(getClass().getResource("views/WorkPage.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("views/AuthPage.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("views/WorkPage.fxml")));
 
         GoToPage(AUTH_PAGE);
 
@@ -37,8 +38,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void GoToPage(int page){
+    public static void GoToPage(int page) throws IOException {
         root.getChildren().clear();
-        root.getChildren().add(pages.get(page));
+        root.getChildren().add(loaders.get(page).load());
     }
 }

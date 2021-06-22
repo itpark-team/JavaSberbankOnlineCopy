@@ -12,7 +12,7 @@ public class CardsController {
 
     private static String GetRandomCardNumber() {
         String output = "";
-        int numberLength = 20;
+        int numberLength = 10;
         Random random = new Random();
 
         for (int i = 0; i < numberLength; i++) {
@@ -64,7 +64,7 @@ public class CardsController {
 
             DbManager db = DbManager.GetInstance();
 
-            ArrayList<Card> cards = db.TableCards.GetCardByIdClient(idClient);
+            ArrayList<Card> cards = db.TableCards.GetCardsByIdClient(idClient);
 
             String status = Response.STATUS_OK;
             String message = new Gson().toJson(cards);

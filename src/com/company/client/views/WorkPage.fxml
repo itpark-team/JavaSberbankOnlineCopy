@@ -3,8 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.client.controllers.WorkPageController">
+<Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.client.controllers.WorkPageController">
     <children>
-        <Label id="labelFIO" layoutX="39.0" layoutY="41.0" text="Имя Фамилия" />
+        <Label fx:id="labelFIO" layoutX="39.0" layoutY="41.0" text="Имя Фамилия" />
+
+        <Label layoutX="39.0" layoutY="85.0" text="Список карт:" />
+
+        <ListView fx:id="listViewClientsCards" layoutX="39.0" layoutY="113.0" prefHeight="200.0" prefWidth="300.0" />
+      <Button layoutX="39.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#buttonLoadCardsClick" text="Перезагрузить спискок карт" />
+      <Button layoutX="39.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#buttonCreateCardClick" prefHeight="27.0" prefWidth="183.0" text="Выпустить новую карту" />
     </children>
 </Pane>

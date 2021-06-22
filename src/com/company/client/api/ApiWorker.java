@@ -59,4 +59,40 @@ public class ApiWorker {
             throw e;
         }
     }
+
+    public Response CardsGetAllForClient(int idClient) throws Exception {
+        try{
+            String command = "Cards.GetAllForClient";
+            String parameters = Integer.toString(idClient);
+            String apiKey = General.API_KEY;
+
+            Request request = new Request(command, parameters, apiKey);
+
+            Response response = SendRequestReceiveResponse(request);
+
+            return response;
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    public Response CardsAddNewForClient(int idClient) throws Exception {
+        try{
+            String command = "Cards.AddNewForClient";
+            String parameters = Integer.toString(idClient);
+            String apiKey = General.API_KEY;
+
+            Request request = new Request(command, parameters, apiKey);
+
+            Response response = SendRequestReceiveResponse(request);
+
+            return response;
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+
 }

@@ -79,7 +79,7 @@ public class TableCards {
         }
     }
 
-    public ArrayList<Card> GetCardByIdClient(int idClient) throws Exception {
+    public ArrayList<Card> GetCardsByIdClient(int idClient) throws Exception {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
