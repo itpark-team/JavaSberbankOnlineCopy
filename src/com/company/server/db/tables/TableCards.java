@@ -40,7 +40,7 @@ public class TableCards {
         }
     }
 
-    public void InsertNewCard(Card card) throws Exception {
+    public void InsertNewCard(String cardNumber, int cardMoney) throws Exception {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -48,7 +48,7 @@ public class TableCards {
 
             Statement statement = connection.createStatement();
 
-            String query = String.format("INSERT INTO \"Cards\" (\"Number\", \"Money\") VALUES ('%s',%s)", card.Number, card.Money);
+            String query = String.format("INSERT INTO \"Cards\" (\"Number\", \"Money\") VALUES ('%s',%d)", cardNumber, cardMoney);
 
             statement.executeUpdate(query);
         } catch (Exception e) {
@@ -56,7 +56,23 @@ public class TableCards {
         }
     }
 
-    public int GetLastInsertedCardId() throws SQLException, ClassNotFoundException {
+    public void AddMoney(String cardNumber, int cardMoney) throws Exception{
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            Connection connection = DriverManager.getConnection(url, login, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", cardMoney, cardNumber);
+
+            statement.executeUpdate(query);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public int GetLastInsertedCardId() throws Exception {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 

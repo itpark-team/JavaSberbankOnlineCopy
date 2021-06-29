@@ -5,6 +5,8 @@ import com.company.client.api.ApiWorker;
 import com.company.common.communication.General;
 import com.company.common.communication.Response;
 import com.company.common.datatools.DataStorage;
+import com.company.common.dto.AuthClientDto;
+import com.company.common.dto.WorkClientDto;
 import com.company.common.entities.Client;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
@@ -40,18 +42,20 @@ public class AuthPageController {
             return;
         }
 
-        Client client = new Client(0, "", "", login, password);
+        AuthClientDto clientToServer = new AuthClientDto(login, password);
 
         try {
-            Response response = apiWorker.ClientsAuth(client);
+            Response response = apiWorker.ClientsAuth(clientToServer);
 
-            switch (response.Status){
+            switch (response.Status) {
                 case Response.STATUS_OK:
-                    Client clientFromServer = new Gson().fromJson(response.Message, Client.class);
+                    WorkClientDto clientFromServer = new Gson().fromJson(response.Message, WorkClientDto.class);
 
-                    DataStorage.Add("current_client", clientFromServer);
+                    Client client = new Client(clientFromServer.Id, clientFromServer.FirstName, clientFromServer.LastName, "", "");
 
-                    ShowDialog("Успешная авторизация для "+clientFromServer.FirstName);
+                    DataStorage.Add("current_client", client);
+
+                    ShowDialog("Успешная авторизация для " + clientFromServer.FirstName);
 
                     Main.GoToPage(Main.WORK_PAGE);
                     break;

@@ -10,7 +10,17 @@
         <Label layoutX="39.0" layoutY="85.0" text="Список карт:" />
 
         <ListView fx:id="listViewClientsCards" layoutX="39.0" layoutY="113.0" prefHeight="200.0" prefWidth="300.0" />
+
       <Button layoutX="39.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#buttonLoadCardsClick" text="Перезагрузить спискок карт" />
+
       <Button layoutX="39.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#buttonCreateCardClick" prefHeight="27.0" prefWidth="183.0" text="Выпустить новую карту" />
+
+    <Label layoutX="381.0" layoutY="85.0" text="Введите номер карты:" />
+    <TextField fx:id="textFieldCardNumber" layoutX="381.0" layoutY="124.0" />
+    <Label layoutX="381.0" layoutY="190.0" text="Введите сумму денег:" />
+    <TextField fx:id="textFieldCardMoney" layoutX="381.0" layoutY="239.0" />
+
+    <Button layoutX="381.0" layoutY="313.0" mnemonicParsing="false" text="Пополнить баланс" onMouseClicked="#buttonAddMoneyClick"/>
+
     </children>
 </Pane>
