@@ -1,6 +1,7 @@
 package com.company.server.controllers;
 
 import com.company.common.communication.Response;
+import com.company.common.datatools.DataStorage;
 import com.company.common.dto.AuthClientDto;
 import com.company.common.dto.WorkClientDto;
 import com.company.common.entities.Client;
@@ -25,6 +26,7 @@ public class ClientsController {
             return new Response(status, message);
 
         } catch (Exception e) {
+            DataStorage.Add("my_exception", e.getMessage());
             throw e;
         }
     }

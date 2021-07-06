@@ -55,6 +55,7 @@ public class CardsController {
 
             return new Response(status, message);
         } catch (Exception e) {
+            DataStorage.Add("my_exception", e.getMessage());
             throw e;
         }
     }
@@ -72,6 +73,7 @@ public class CardsController {
 
             return new Response(status, message);
         } catch (Exception e) {
+            DataStorage.Add("my_exception", e.getMessage());
             throw e;
         }
     }
@@ -85,8 +87,11 @@ public class CardsController {
             boolean existCard = db.TableCards.ExistCardByNumber(cardForAddMoney.Number);
 
             if (existCard == false) {
-                DataStorage.Add("my_exception", "Ошибка. Карты с таким номером не существует");
-                throw new Exception("Ошибка. Ошибка. Карты с таким номером не существует");
+                throw new Exception("Ошибка. Карты с таким номером не существует");
+            }
+
+            if(cardForAddMoney.Money<=0){
+                throw new Exception("Ошибка. Добавить сумму денег меньше или равную 0 невозможно");
             }
 
             db.TableCards.AddMoney(cardForAddMoney.Number, cardForAddMoney.Money);
@@ -96,6 +101,7 @@ public class CardsController {
 
             return new Response(status, message);
         } catch (Exception e) {
+            DataStorage.Add("my_exception", e.getMessage());
             throw e;
         }
     }
