@@ -72,6 +72,50 @@ public class TableCards {
         }
     }
 
+    public int GetMoneyByNumber(String cardNumber) throws Exception {
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            Connection connection = DriverManager.getConnection(url, login, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = String.format("SELECT \"Money\" FROM \"Cards\" WHERE \"Number\"='%s'", cardNumber);
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+            resultSet.next();
+            int money = resultSet.getInt(1);
+
+            connection.close();
+
+            return money;
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    public void SendMoney(String cardNumberFrom, String cardNumberTo, int cardMoney) throws Exception{
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            Connection connection = DriverManager.getConnection(url, login, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"-%d WHERE \"Number\"='%s'", cardMoney, cardNumberFrom);
+
+            statement.executeUpdate(query);
+
+            query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", cardMoney, cardNumberTo);
+
+            statement.executeUpdate(query);
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public int GetLastInsertedCardId() throws Exception {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
