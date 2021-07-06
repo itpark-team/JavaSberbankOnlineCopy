@@ -12,6 +12,8 @@ import com.company.common.entities.Card;
 import com.company.common.entities.Client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,7 +55,18 @@ public class WorkPageController {
         labelFIO.setText("Добро пожаловать " + client.FirstName + " " + client.LastName);
 
         LoadClientCards();
+
+        listViewClientsCards.getSelectionModel().selectedItemProperty().addListener(listViewClientsCardsSelectedItemListener);
     }
+
+    ChangeListener<String> listViewClientsCardsSelectedItemListener = new ChangeListener<String>(){
+        public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
+            int index = listViewClientsCards.getSelectionModel().getSelectedIndex();
+            Card selectedCard = client.Cards.get(index);
+
+            textFieldCardNumber.setText(selectedCard.Number);
+        }
+    };
 
     private ObservableList<String> ClientCardsToStrings() {
         ObservableList<String> strings = FXCollections.observableArrayList();
