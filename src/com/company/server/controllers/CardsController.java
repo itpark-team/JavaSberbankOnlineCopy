@@ -2,7 +2,8 @@ package com.company.server.controllers;
 
 import com.company.common.communication.Response;
 import com.company.common.datatools.DataStorage;
-import com.company.common.dto.AddMoneyDto;
+import com.company.common.dto.AddMoneyToCardDto;
+import com.company.common.dto.SendMoneyFromCardToCardDto;
 import com.company.common.entities.Card;
 import com.company.server.db.DbManager;
 import com.google.gson.Gson;
@@ -30,7 +31,7 @@ public class CardsController {
         return output;
     }
 
-    public static Response AddNewForClient(String parameters) throws Exception {
+    public static Response AddNewCardForClient(String parameters) throws Exception {
         try {
             int idClient = Integer.parseInt(parameters);
 
@@ -60,7 +61,7 @@ public class CardsController {
         }
     }
 
-    public static Response GetAllForClient(String parameters) throws Exception {
+    public static Response GetAllCardsForClient(String parameters) throws Exception {
         try {
             int idClient = Integer.parseInt(parameters);
 
@@ -80,26 +81,67 @@ public class CardsController {
 
     public static Response AddMoneyToCard(String parameters) throws Exception {
         try {
-            AddMoneyDto cardForAddMoney = new Gson().fromJson(parameters, AddMoneyDto.class);
+            AddMoneyToCardDto addMoneyToCardDto = new Gson().fromJson(parameters, AddMoneyToCardDto.class);
 
             DbManager db = DbManager.GetInstance();
 
-            boolean existCard = db.TableCards.ExistCardByNumber(cardForAddMoney.Number);
+            boolean existCard = db.TableCards.ExistCardByNumber(addMoneyToCardDto.Number);
 
             if (existCard == false) {
                 throw new Exception("Ошибка. Карты с таким номером не существует");
             }
 
-            if(cardForAddMoney.Money<=0){
+            if (addMoneyToCardDto.Money <= 0) {
                 throw new Exception("Ошибка. Добавить сумму денег меньше или равную 0 невозможно");
             }
 
-            db.TableCards.AddMoney(cardForAddMoney.Number, cardForAddMoney.Money);
+            db.TableCards.AddMoneyToCard(addMoneyToCardDto.Number, addMoneyToCardDto.Money);
 
             String status = Response.STATUS_OK;
             String message = "";
 
             return new Response(status, message);
+        } catch (Exception e) {
+            DataStorage.Add("my_exception", e.getMessage());
+            throw e;
+        }
+    }
+
+    public static Response SendMoneyFromCardToCard(String parameters) throws Exception {
+        try {
+            SendMoneyFromCardToCardDto sendMoneyFromCardToCardDto = new Gson().fromJson(parameters, SendMoneyFromCardToCardDto.class);
+
+            DbManager db = DbManager.GetInstance();
+
+            boolean existCardFrom = db.TableCards.ExistCardByNumber(sendMoneyFromCardToCardDto.NumberFrom);
+
+            if (existCardFrom == false) {
+                throw new Exception("Ошибка. Карты отправителя с таким номером не существует");
+            }
+
+            boolean existCardTo = db.TableCards.ExistCardByNumber(sendMoneyFromCardToCardDto.NumberTo);
+
+            if (existCardTo == false) {
+                throw new Exception("Ошибка. Карты получателя с таким номером не существует");
+            }
+
+            if (sendMoneyFromCardToCardDto.Money <= 0) {
+                throw new Exception("Ошибка. Отправить сумму денег меньше или равную 0 невозможно");
+            }
+
+            int moneyInCardFrom = db.TableCards.GetCardMoneyByNumber(sendMoneyFromCardToCardDto.NumberFrom);
+
+            if (moneyInCardFrom < sendMoneyFromCardToCardDto.Money) {
+                throw new Exception("Ошибка. На карте отправителя меньше денег чем вы хотите отправить");
+            }
+
+            db.TableCards.SendMoneyFromCardToCard(sendMoneyFromCardToCardDto.NumberFrom, sendMoneyFromCardToCardDto.NumberTo, sendMoneyFromCardToCardDto.Money);
+
+            String status = Response.STATUS_OK;
+            String message = "";
+
+            return new Response(status, message);
+
         } catch (Exception e) {
             DataStorage.Add("my_exception", e.getMessage());
             throw e;

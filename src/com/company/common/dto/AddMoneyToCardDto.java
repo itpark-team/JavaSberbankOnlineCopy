@@ -1,10 +1,10 @@
 package com.company.common.dto;
 
-public class AddMoneyDto {
+public class AddMoneyToCardDto {
     public String Number;
     public int Money;
 
-    public AddMoneyDto(String number, int money) {
+    public AddMoneyToCardDto(String number, int money) {
         Number = number;
         Money = money;
     }

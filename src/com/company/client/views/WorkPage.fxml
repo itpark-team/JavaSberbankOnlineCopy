@@ -3,24 +3,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.client.controllers.WorkPageController">
+<Pane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.company.client.controllers.WorkPageController">
     <children>
-        <Label fx:id="labelFIO" layoutX="39.0" layoutY="41.0" text="Имя Фамилия" />
+        <Label fx:id="labelFIO" layoutX="39.0" layoutY="41.0" text="Имя Фамилия"/>
 
-        <Label layoutX="39.0" layoutY="85.0" text="Список карт:" />
+        <Label layoutX="39.0" layoutY="85.0" text="Список карт:"/>
 
-        <ListView fx:id="listViewClientsCards" layoutX="39.0" layoutY="113.0" prefHeight="200.0" prefWidth="300.0" />
+        <ListView fx:id="listViewClientsCards" layoutX="39.0" layoutY="113.0" prefHeight="200.0" prefWidth="300.0"/>
 
-      <Button layoutX="39.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#buttonLoadCardsClick" text="Перезагрузить спискок карт" />
+        <Button layoutX="39.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#buttonLoadCardsClick"
+                text="Перезагрузить спискок карт"/>
 
-      <Button layoutX="39.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#buttonCreateCardClick" prefHeight="27.0" prefWidth="183.0" text="Выпустить новую карту" />
+        <Button layoutX="39.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#buttonCreateCardClick"
+                prefHeight="27.0" prefWidth="183.0" text="Выпустить новую карту"/>
 
-    <Label layoutX="381.0" layoutY="85.0" text="Введите номер карты:" />
-    <TextField fx:id="textFieldCardNumber" layoutX="381.0" layoutY="124.0" />
-    <Label layoutX="381.0" layoutY="190.0" text="Введите сумму денег:" />
-    <TextField fx:id="textFieldCardMoney" layoutX="381.0" layoutY="239.0" />
+        <Label layoutX="381.0" layoutY="85.0" text="Введите номер карты:"/>
+        <TextField fx:id="textFieldCardAddNumber" layoutX="381.0" layoutY="124.0"/>
+        <Label layoutX="381.0" layoutY="190.0" text="Введите сумму денег:"/>
+        <TextField fx:id="textFieldCardAddMoney" layoutX="381.0" layoutY="239.0"/>
 
-    <Button layoutX="381.0" layoutY="313.0" mnemonicParsing="false" text="Пополнить баланс" onMouseClicked="#buttonAddMoneyClick"/>
+        <Button layoutX="381.0" layoutY="313.0" mnemonicParsing="false" text="Пополнить баланс" onMouseClicked="#buttonAddMoneyClick"/>
+
+        <Label layoutX="39.0" layoutY="417.0" text="номер карты отправителя" />
+        <TextField layoutX="41.0" layoutY="444.0" fx:id="textFieldCardSendNumberFrom"/>
+
+        <Label layoutX="41.0" layoutY="476.0" text="номер карты получателя" />
+        <TextField layoutX="41.0" layoutY="502.0" fx:id="textFieldCardSendNumberTo"/>
+
+        <Label layoutX="222.0" layoutY="417.0" text="сумма денег" />
+        <TextField layoutX="216.0" layoutY="444.0" fx:id="textFieldCardSendMoney"/>
+
+        <Button layoutX="39.0" layoutY="539.0" mnemonicParsing="false" text="отправить" onMouseClicked="#buttonSendMoneyClick"/>
 
     </children>
 </Pane>

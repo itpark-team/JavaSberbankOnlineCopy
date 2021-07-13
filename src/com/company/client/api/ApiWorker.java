@@ -3,9 +3,9 @@ package com.company.client.api;
 import com.company.common.communication.General;
 import com.company.common.communication.Request;
 import com.company.common.communication.Response;
-import com.company.common.dto.AddMoneyDto;
+import com.company.common.dto.AddMoneyToCardDto;
 import com.company.common.dto.AuthClientDto;
-import com.company.common.entities.Client;
+import com.company.common.dto.SendMoneyFromCardToCardDto;
 import com.google.gson.Gson;
 
 import java.io.InputStream;
@@ -62,9 +62,9 @@ public class ApiWorker {
         }
     }
 
-    public Response CardsGetAllForClient(int idClient) throws Exception {
+    public Response CardsGetAllCardsForClient(int idClient) throws Exception {
         try{
-            String command = "Cards.GetAllForClient";
+            String command = "Cards.GetAllCardsForClient";
             String parameters = Integer.toString(idClient);
             String apiKey = General.API_KEY;
 
@@ -79,9 +79,9 @@ public class ApiWorker {
         }
     }
 
-    public Response CardsAddNewForClient(int idClient) throws Exception {
+    public Response CardsAddNewCardForClient(int idClient) throws Exception {
         try{
-            String command = "Cards.AddNewForClient";
+            String command = "Cards.AddNewCardForClient";
             String parameters = Integer.toString(idClient);
             String apiKey = General.API_KEY;
 
@@ -96,10 +96,27 @@ public class ApiWorker {
         }
     }
 
-    public Response CardsAddMoneyToCard(AddMoneyDto cardForAddMoney) throws Exception {
+    public Response CardsAddMoneyToCard(AddMoneyToCardDto cardForAddMoney) throws Exception {
         try{
             String command = "Cards.AddMoneyToCard";
             String parameters = new Gson().toJson(cardForAddMoney);
+            String apiKey = General.API_KEY;
+
+            Request request = new Request(command, parameters, apiKey);
+
+            Response response = SendRequestReceiveResponse(request);
+
+            return response;
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    public Response CardsSendMoneyFromCardToCard(SendMoneyFromCardToCardDto sendMoneyFromCardToCardDto) throws Exception {
+        try{
+            String command = "Cards.SendMoneyFromCardToCard";
+            String parameters = new Gson().toJson(sendMoneyFromCardToCardDto);
             String apiKey = General.API_KEY;
 
             Request request = new Request(command, parameters, apiKey);

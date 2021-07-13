@@ -1,8 +1,6 @@
 package com.company.server.db.tables;
 
-import com.company.common.datatools.DataStorage;
 import com.company.common.entities.Card;
-import com.company.common.entities.Client;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public class TableCards {
         }
     }
 
-    public void InsertNewCard(String cardNumber, int cardMoney) throws Exception {
+    public void InsertNewCard(String number, int money) throws Exception {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -48,7 +46,7 @@ public class TableCards {
 
             Statement statement = connection.createStatement();
 
-            String query = String.format("INSERT INTO \"Cards\" (\"Number\", \"Money\") VALUES ('%s',%d)", cardNumber, cardMoney);
+            String query = String.format("INSERT INTO \"Cards\" (\"Number\", \"Money\") VALUES ('%s',%d)", number, money);
 
             statement.executeUpdate(query);
         } catch (Exception e) {
@@ -56,7 +54,7 @@ public class TableCards {
         }
     }
 
-    public void AddMoney(String cardNumber, int cardMoney) throws Exception{
+    public void AddMoneyToCard(String number, int money) throws Exception{
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -64,7 +62,7 @@ public class TableCards {
 
             Statement statement = connection.createStatement();
 
-            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", cardMoney, cardNumber);
+            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", money, number);
 
             statement.executeUpdate(query);
         } catch (Exception e) {
@@ -72,7 +70,7 @@ public class TableCards {
         }
     }
 
-    public int GetMoneyByNumber(String cardNumber) throws Exception {
+    public int GetCardMoneyByNumber(String number) throws Exception {
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -80,7 +78,7 @@ public class TableCards {
 
             Statement statement = connection.createStatement();
 
-            String query = String.format("SELECT \"Money\" FROM \"Cards\" WHERE \"Number\"='%s'", cardNumber);
+            String query = String.format("SELECT \"Money\" FROM \"Cards\" WHERE \"Number\"='%s'", number);
 
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -95,7 +93,7 @@ public class TableCards {
         }
     }
 
-    public void SendMoney(String cardNumberFrom, String cardNumberTo, int cardMoney) throws Exception{
+    public void SendMoneyFromCardToCard(String numberFrom, String numberTo, int money) throws Exception{
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -103,11 +101,11 @@ public class TableCards {
 
             Statement statement = connection.createStatement();
 
-            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"-%d WHERE \"Number\"='%s'", cardMoney, cardNumberFrom);
+            String query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"-%d WHERE \"Number\"='%s'", money, numberFrom);
 
             statement.executeUpdate(query);
 
-            query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", cardMoney, cardNumberTo);
+            query = String.format("UPDATE \"Cards\" SET \"Money\"=\"Money\"+%d WHERE \"Number\"='%s'", money, numberTo);
 
             statement.executeUpdate(query);
 
