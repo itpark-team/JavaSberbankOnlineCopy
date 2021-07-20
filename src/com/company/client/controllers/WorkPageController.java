@@ -1,5 +1,6 @@
 package com.company.client.controllers;
 
+import com.company.client.Main;
 import com.company.client.api.ApiWorker;
 import com.company.common.communication.General;
 import com.company.common.communication.Response;
@@ -212,5 +213,11 @@ public class WorkPageController {
         } catch (Exception e) {
             ShowDialog("Ошибка отправки на сервер: " + e.toString());
         }
+    }
+
+    public void buttonGoBackClick(MouseEvent mouseEvent) throws Exception {
+        DataStorage.Delete("current_client");
+        client = null;
+        Main.GoToPage(Main.AUTH_PAGE);
     }
 }

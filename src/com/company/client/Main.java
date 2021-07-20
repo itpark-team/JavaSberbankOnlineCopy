@@ -40,6 +40,9 @@ public class Main extends Application {
 
     public static void GoToPage(int page) throws IOException {
         root.getChildren().clear();
+        /*loaders.get(page).setRoot(null);
+        root.getChildren().add(loaders.get(page).load());*/
+
         if (loaders.get(page).getRoot() == null) {
             root.getChildren().add(loaders.get(page).load());
         } else {

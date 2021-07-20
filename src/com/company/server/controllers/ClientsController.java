@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 public class ClientsController {
 
     public static Response Auth(String parameters) throws Exception {
-
         try {
             AuthClientDto authClientDto = new Gson().fromJson(parameters, AuthClientDto.class);
 

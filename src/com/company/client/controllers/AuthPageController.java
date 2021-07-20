@@ -57,6 +57,9 @@ public class AuthPageController {
 
                     ShowDialog("Успешная авторизация для " + clientFromServer.FirstName);
 
+                    textFieldLogin.clear();
+                    textFieldPassword.clear();
+
                     Main.GoToPage(Main.WORK_PAGE);
                     break;
                 case Response.STATUS_ERROR:

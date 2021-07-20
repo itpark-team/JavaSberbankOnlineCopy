@@ -2,13 +2,10 @@ package com.company.server.connectiontools;
 
 import com.company.common.communication.Response;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Router {
     public static Response Route(String command, String parameters) throws Exception {
-        //String command = "Clients.Auth";
-
         try {
             String className = "com.company.server.controllers." + command.split("\\.")[0] + "Controller";
             String methodName = command.split("\\.")[1];
